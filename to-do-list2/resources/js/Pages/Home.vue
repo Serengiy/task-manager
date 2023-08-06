@@ -1,4 +1,5 @@
 <template>
+    <notifications position="left top" width="400" classes="my-notification"/>
     <div>
 
     </div>
@@ -95,8 +96,8 @@
                                     <p>Add some lists and tags for start working with tasks</p>
                                 </div>
                                 <div v-if="tags && lists" class="p-4 h-full flex items-end justify-between">
-                                    <button  class="text-sm border border-gray-300 px-8 py-2 rounded-md hover:bg-gray-500 hover:text-white">Delete Task</button>
-                                    <button v-if="editTask" @click.prevent="update" class=" ml-8 text-sm border border-gray-300 px-8 py-2 rounded-md bg-yellow-400 hover:bg-red-600 hover:text-white">Save Changes</button>
+                                    <button @click.prevent="nots" class="text-sm border border-gray-300 px-8 py-2 rounded-md hover:bg-gray-500 hover:text-white">Delete Task</button>
+                                    <button v-if="editTask" @click.prevent="update" class=" ml-8 text-sm border border-gray-300 px-8 py-2 rounded-md bg-yellow-400 hover:bg-red-600 hover:text-white">Save changes</button>
                                     <button v-if="submitTask" @click.prevent="submit" class=" ml-8 text-sm border border-gray-300 px-8 py-2 rounded-md bg-yellow-400 hover:bg-red-600 hover:text-white">Submit</button>
                                 </div>
                             </form>
@@ -113,12 +114,24 @@ import Main from '@/Layouts/Main.vue';
 import MySelect from "@/Components/MySelect.vue";
 import {useForm, usePage} from "@inertiajs/vue3";
 import Checkbox from "@/Components/Checkbox.vue";
+import { useNotification } from "@kyvg/vue3-notification";
 import {reactive, ref} from "vue";
 
 const taskRedactor = ref(false);
 
 const editTask = ref(false);
 const submitTask = ref(false);
+
+const notification = useNotification()
+
+
+const nots =()=>{
+    notification.notify({
+        title: "Vue 3 notification 🎉",
+        text: "The operation completed",
+        type: "success",
+    });
+}
 
 const errors = reactive(ref(null))
 
@@ -144,8 +157,13 @@ const submit = () =>{
     form.list = listSelected.value.selectedValue
     form.post('/tasks', {
         onSuccess:(res) => {
-            form.reset()
             Object.assign(tasks, res.props.tasks)
+            notification.notify({
+                title: "Новая задача создана успешно 🎉",
+                text: `Выпролнить до ${form.due_date}`,
+                type: "success",
+            });
+            form.reset()
         },
         onError:(res) => {
             errors.value = res
@@ -158,8 +176,13 @@ const update = () => {
     form.list = String(listSelected.value.selectedValue)
     form.patch(`/tasks/${form.id}`, {
         onSuccess:(res)=>{
-            form.reset()
             Object.assign(tasks, res.props.tasks)
+            notification.notify({
+                title: "Задача обновлена",
+                text: `Выпролнить до ${form.due_date}`,
+                type: "success",
+            });
+            form.reset()
         }
     })
 }
@@ -196,5 +219,30 @@ const alertSuccess = () =>{
 .parent-slide-enter-from,
 .parent-slide-leave-to {
     transform: translateX(100%);
+}
+
+.my-notification {
+    margin: 0 5px 5px;
+    padding: 15px;
+    font-size: 16px;
+    color: #ffffff;
+
+    background: #44a4fc;
+    border-left: 5px solid #187fe7;
+
+    &.success {
+        background: #68cd86;
+        border-left-color: #42a85f;
+    }
+
+    &.warn {
+        background: #ffb648;
+        border-left-color: #f48a06;
+    }
+
+    &.error {
+        background: #e54d42;
+        border-left-color: #b82e24;
+    }
 }
 </style>
