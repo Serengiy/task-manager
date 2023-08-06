@@ -20,6 +20,7 @@
     "dependencies": {
         "@vueform/multiselect": "^2.6.2",
         "@vuepic/vue-datepicker": "^5.4.0",
-        "vue-multiselect": "^2.1.7"
+        "chokidar": "^3.5.3",
+        "fsevents": "^2.3.2"
     }
 }
