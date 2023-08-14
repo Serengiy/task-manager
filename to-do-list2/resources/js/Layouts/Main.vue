@@ -9,21 +9,21 @@
                 </div>
                 <ul class="flex flex-col py-4 w-full">
                     <li>
-                        <a href="#" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
-                            <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bx-home"></i></span>
-                            <span class="text-sm font-medium">Dashboard</span>
-                        </a>
+                        <Link href="/upcoming" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
+                            <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bxs-chevrons-right"></i></span>
+                            <span  class="text-sm font-medium">Upcoming</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
+                            <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bx-list-ol"></i></span>
+                            <span class="text-sm font-medium">Today</span>
+                        </Link>
                     </li>
                     <li>
                         <a href="#" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
-                            <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bx-home"></i></span>
-                            <span class="text-sm font-medium">Dashboard</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
-                            <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bx-home"></i></span>
-                            <span class="text-sm font-medium">Dashboard</span>
+                            <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bxs-sticker"></i></span>
+                            <span class="text-sm font-medium">Sticky wall</span>
                         </a>
                     </li>
                 </ul>
@@ -34,16 +34,16 @@
                         <span class="">Lists</span>
                     </div>
                     <div v-if="lists" class="mb-3">
-                        <div v-for="list in lists" class="flex justify-between items-center pl-2 mb-2 rounded cursor-pointer hover:bg-gray-300">
+                        <Link :href="route('home', {category: list.category})" v-for="list in lists" class="flex justify-between items-center pl-2 mb-2 rounded cursor-pointer hover:bg-gray-300">
 <!--                            <p :class="`${list.color} cursor-pointer rounded-lg px-2 py-0.2 mb-2`">{{ list.category }}</p>-->
                             <div class="flex items-center gap-3">
                                 <div :class="`${list.color}  rounded w-4 h-4`"></div>
                                 <p>{{list.category}}</p>
                             </div>
-                            <div class="flex text-xs px-1 border border-gray-400 rounded">
+                            <div class="flex text-xs px-1 border border-gray-400 rounded mr-2">
                                 <p class="">{{ list.tasks.length }}</p>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div class="mb-3">
                         <button @click.prevent="toggleList" class="flex items-center text-left border border-gray-300 text-gray-600 rounded-lg p-2 w-full text-sm hover:bg-gray-300 hover:text-gray-900"><i class="bx text-xl bx-plus mr-3"></i>Add new list</button>
@@ -80,10 +80,10 @@
                         <span class="">Tags</span>
                     </div>
                     <div class="flex flex-wrap mb-3">
-                        <div v-if="tags" class="flex flex-wrap gap-1">
-                            <div v-for="tag in tags">
-                                <p :class="`${tag.color} hover:border hover:border hover:border-gray-500 border cursor-pointer rounded-lg px-2 py-0.2`">{{tag.tag}}</p>
-                            </div>
+                        <div v-if="tags" class="flex flex-wrap gap-1 text-sm">
+                            <Link :href="route('home', {tag: tag.tag})" v-for="tag in tags">
+                                <p :class="`${tag.color} hover:border hover:border-gray-500 border cursor-pointer rounded-lg px-2 py-0.2`">{{tag.tag}}</p>
+                            </Link>
                         </div>
                         <div class="p-1">
                             <button @click.prevent="toggleTag" class="flex items-center justify-center text-gray-600 text-sm border border-gray-300 rounded-lg px-1.5 py-1 hover:bg-gray-300 hover:text-gray-900"><i class="bx bx-plus"></i>Add Tag</button>
@@ -127,14 +127,20 @@
 </template>
 
 <script>
+import {Link} from "@inertiajs/vue3";
+// import Upcoming from "@/Pages/Upcoming.vue";
+
 export default {
     name: "Main",
     props:[
-        'errors',
         'tags',
         'lists'
 
     ],
+    components:{
+        // Upcoming,
+        Link
+    },
     data(){
         return{
             errors:'',
@@ -171,9 +177,7 @@ export default {
                     Object.assign(this.lists, res.props.lists)
                 },
                 onError:(error)=>{
-                    // console.log(error.category)
                     this.errors = error
-                    // console.log(this.errors)
                 }
             })
             this.category = ''

@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function (){
 
 //    Tasks routes
     Route::get('/', [\App\Http\Controllers\TaskController::class, 'index'])->name('home');
+    Route::get('/upcoming', [\App\Http\Controllers\TaskController::class, 'upcoming'])->name('upcoming');
     Route::post('/tasks', [\App\Http\Controllers\TaskController::class, 'store'])->name('task.store');
     Route::patch('/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'update'])->name('task.update');
 });

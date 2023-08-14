@@ -27,7 +27,8 @@ class StoreRequest extends FormRequest
             'content' => 'required|string',
             'tags' => 'required|array',
             'list' => 'required|string',
-            'due_date' => 'required|date|after_or_equal:' . Carbon::now()->addSeconds(10)->format('Y-m-d H:i:s'),
+            'due_date' => 'required|date',
+//            'due_date' => 'required|date|after_or_equal:' . Carbon::now()->addSeconds(10)->format('Y-m-d H:i:s'),
         ];
     }
 
