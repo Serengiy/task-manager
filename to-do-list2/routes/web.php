@@ -27,6 +27,12 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/upcoming', [\App\Http\Controllers\TaskController::class, 'upcoming'])->name('upcoming');
     Route::post('/tasks', [\App\Http\Controllers\TaskController::class, 'store'])->name('task.store');
     Route::patch('/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'update'])->name('task.update');
+//    Sticker routes
+    Route::get('/sticker-wall', [\App\Http\Controllers\StickerController::class, 'index'])->name('sticker.index');
+    Route::post('/sticker-wall', [\App\Http\Controllers\StickerController::class, 'store']);
+    Route::patch('/sticker-wall/{sticker}', [\App\Http\Controllers\StickerController::class, 'update']);
+    Route::delete('/sticker-wall/{sticker}', [\App\Http\Controllers\StickerController::class, 'destroy']);
+
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -16,7 +16,8 @@ class TaskController extends Controller
 {
     public function index(Request $request)
     {
-        $title = 'Today ' . now()->format('d M');
+        $title = 'All tasks ' . now()->format('d M');
+//        $title = 'All tasks';
         $taskQuery = Task::where('user_id', auth()->id())
             ->with('category')
             ->with('tags');

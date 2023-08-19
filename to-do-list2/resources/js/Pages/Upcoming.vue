@@ -13,7 +13,7 @@
                 <div class=" mr-4 border m-4 border-gray-300 rounded-xl ">
                     <TaskList class="overflow-y-auto" @newTask="newTask" @taskEdit="taskEdit" :tasks="todayTasks" :date="'Today'"></TaskList>
                 </div>
-                <div :class="isColumnClass ? 'flex h-1/2' : 'flex flex-col mr-8'">
+                <div :class="isColumnClass ? 'flex h-1/2 ' : 'flex flex-col mr-8 '">
                     <div class="border w-full m-4 border-gray-300 rounded-xl overflow-y-auto">
                         <TaskList  @newTask="newTask" @taskEdit="taskEdit" :tasks="tomorrowTasks" :date="'Tomorrow'"></TaskList>
                     </div>

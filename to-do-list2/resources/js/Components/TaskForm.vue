@@ -25,7 +25,7 @@ const tagsSelected = ref(null);
 const listSelected = ref(null);
 const errors = ref(null);
 
-const emit = defineEmits();
+
 const editTaskBtn = ref(false);
 
 

@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
     <div class="min-h-screen flex flex-row bg-gray-100">
         <transition name="slide-fade" mode="out-in" class="">
-            <div v-if="menuOpen"  id="my_menu" class=" flex flex-col w-96 bg-gray-200 rounded-3xl m-2  overflow-y-auto items-center" key="menu">
+            <div v-if="menuOpen"  id="my_menu" class=" flex flex-col w-96 bg-gray-200 rounded-3xl p-2  overflow-y-auto items-center" key="menu">
                 <div class="flex items-center h-20 shadow-md justify-between w-full">
                     <h1 class="ml-6 text-3xl uppercase text-indigo-500">Menu</h1>
                     <span class="cursor-pointer inline-flex items-center justify-center h-12 w-12 text-3xl text-gray-400" @click="toggleMenu"><i class="bx bx-menu"></i></span>
@@ -17,14 +17,14 @@
                     <li>
                         <Link href="/" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
                             <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bx-list-ol"></i></span>
-                            <span class="text-sm font-medium">Today</span>
+                            <span class="text-sm font-medium">All tasks</span>
                         </Link>
                     </li>
                     <li>
-                        <a href="#" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
+                        <Link :href="route('sticker.index')" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
                             <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bxs-sticker"></i></span>
                             <span class="text-sm font-medium">Sticky wall</span>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
                     <hr class="border-b border-gray-300 w-5/6">
@@ -106,7 +106,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="ml-8 flex flex-col justify-center w-full h-full my-8 gap-2">
+                <div class="pl-8 flex flex-col justify-center w-full h-full my-8 gap-2">
                     <div>
                         <button class="flex text-sm text-gray-800 justify-center items-center gap-1"><i class="bx bx-slider"></i>Settings</button>
                     </div>

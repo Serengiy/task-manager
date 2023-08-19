@@ -4,11 +4,11 @@ import { computed, onMounted, onUnmounted, watch } from 'vue';
 const props = defineProps({
     show: {
         type: Boolean,
-        default: false,
+        default: true,
     },
     maxWidth: {
         type: String,
-        default: '2xl',
+        default: 'lg',
     },
     closeable: {
         type: Boolean,
@@ -62,7 +62,7 @@ const maxWidthClass = computed(() => {
 <template>
     <Teleport to="body">
         <Transition leave-active-class="duration-200">
-            <div v-show="show" class="fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50" scroll-region>
+            <div v-show="show" class="flex items-center fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50" scroll-region>
                 <Transition
                     enter-active-class="ease-out duration-300"
                     enter-from-class="opacity-0"
